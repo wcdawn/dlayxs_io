@@ -1,0 +1,115 @@
+C***********************************************************************
+C                       LAST REVISED 5/1/92                            -
+CF          DLAYXS-IV                                                  -
+CE          MICROSCOPIC GROUP DELAYED NEUTRON PRECURSOR DATA           -
+C                                                                      -
+CN                      THIS FILE PROVIDES PRECURSOR YIELDS,           -
+CN                      EMISSION SPECTRA, AND DECAY CONSTANTS          -
+CN                      ORDERED BY ISOTOPE.  ISOTOPES ARE IDENTIFIED   -
+CN                      BY ABSOLUTE ISOTOPE LABELS FOR RELATION TO     -
+CN                      ISOTOPES IN EITHER FILE ISOTXS OR GRUPXS.      -
+CN                      FORMATS GIVEN ARE FOR FILE EXCHANGE PURPOSES   -
+CN                      ONLY.                                          -
+C                                                                      -
+C***********************************************************************
+
+C-----------------------------------------------------------------------
+CS          FILE STRUCTURE                                             -
+CS                                                                     -
+CS             RECORD TYPE                        PRESENT IF           -
+CS             ===============================    ===============      -
+CS             FILE IDENTIFICATION                ALWAYS               -
+CS             FILE CONTROL                       ALWAYS               -
+CS             FILE DATA, DECAY CONSTANTS, AND                         -
+CS                EMISSION SPECTRA                ALWAYS               -
+CS   *************(REPEAT TO NISOD)                                    -
+CS   *         DELAYED NEUTRON PRECURSOR                               -
+CS   *            YIELD DATA                      ALWAYS               -
+CS   *************                                                     -
+C                                                                      -
+C-----------------------------------------------------------------------
+
+C-----------------------------------------------------------------------
+CR          FILE IDENTIFICATION                                        -
+C                                                                      -
+CL    HNAME,(HUSE(I),I=1,2),IVERS                                      -
+C                                                                      -
+CW    1+3*MULT=NUMBER OF WORDS                                         -
+C                                                                      -
+CB    FORMAT(11H 0V DLAYXS  ,1H*,2A6,1H*,I6)                           -
+C                                                                      -
+CD    HNAME         HOLLERITH FILE NAME - DLAYXS -                     -
+CD    HUSE(I)       HOLLERITH USER IDENTIFICATION (A6)                 -
+CD    IVERS         FILE VERSION NUMBER                                -
+CD    MULT          DOUBLE PRECISION PARAMETER                         -
+CD                      1- A6 WORD IS SINGLE WORD                      -
+CD                      2- A6 WORD IS DOUBLE PRECISION WORD            -
+C                                                                      -
+C-----------------------------------------------------------------------
+
+C-----------------------------------------------------------------------
+CR          FILE CONTROL     (1D RECORD)                               -
+C                                                                      -
+CL    NGROUP,NISOD,NFAM,IDUM                                           -
+C                                                                      -
+CW    4=NUMBER OF WORDS                                                -
+C                                                                      -
+CB    FORMAT(4H 1D ,4I6)                                               -
+C                                                                      -
+CD    NGROUP        NUMBER OF NEUTRON ENERGY GROUPS IN SET             -
+CD    NISOD         NUMBER OF ISOTOPES IN DELAYED NEUTRON SET          -
+CD    NFAM          NUMBER OF DELAYED NEUTRON FAMILIES IN SET          -
+CD    IDUM          DUMMY TO MAKE UP FOUR WORD RECORD.                 -
+C                                                                      -
+C-----------------------------------------------------------------------
+
+C-----------------------------------------------------------------------
+CR          FILE DATA, DECAY CONSTANTS, AND EMISSION SPECTRA           -
+C                            (2D RECORD)                               -
+C                                                                      -
+CL    (HABSID(I),I=1,NISOD),(FLAM(N),N=1,NFAM),((CHID(J,N),J=1,NGROUP),-
+CL    N=1,NFAM),(EMAX(J),J=1,NGROUP),EMIN,(NKFAM(I),I=1,NISOD),        -
+CL    (LOCA(I),I=1,NISOD)                                              -
+C                                                                      -
+CW    (2+MULT)*NISOD+(NGROUP+1)*(NFAM+1)=NUMBER OF WORDS               -
+C                                                                      -
+CB    FORMAT(4H 2D ,9(1X,A6)/          HABSID                          -
+CB   1(10(1X,A6)))                                                     -
+CB    FORMAT ( 6E12.5)                 FLAM,CHID,EMAX,EMIN             -
+CB    FORMAT(12I6)                     NKFAM,LOCA                      -
+C                                                                      -
+CD    HABSID(I)     HOLLERITH ABSOLUTE ISOTOPE LABEL FOR ISOTOPE I (A6)-
+CD    FLAM(N)       DELAYED NEUTRON PRECURSOR DECAY CONSTANT           -
+CD                     FOR FAMILY N                                    -
+CD    CHID(J,N)     FRACTION OF DELAYED NEUTRONS EMITTED INTO NEUTRON  -
+CD                     ENERGY GROUP J FROM PRECURSOR FAMILY N          -
+CD    EMAX(J)       MAXIMUM ENERGY BOUND OF GROUP J (EV)               -
+CD    EMIN          MINIMUM ENERGY BOUND OF SET (EV)                   -
+CD    NKFAM(I)      NUMBER OF FAMILIES TO WHICH FISSION IN ISOTOPE I   -
+CD                     CONTRIBUTES DELAYED NEUTRON PRECURSORS          -
+CD    LOCA(I)       NUMBER OF RECORDS TO BE SKIPPED TO READ DATA FOR   -
+CD                     ISOTOPE I.  LOCA(1)=0                           -
+C                                                                      -
+C-----------------------------------------------------------------------
+
+C-----------------------------------------------------------------------
+CR          DELAYED NEUTRON PRECURSOR YIELD DATA   (3D RECORD)         -
+C                                                                      -
+CL    (SNUDEL(J,K),J=1,NGROUP),K=1,NKFAMI),(NUMFAM(K),K=1,NKFAMI)      -
+C                                                                      -
+CC    NKFAMI=NKFAM(I)                                                  -
+C                                                                      -
+CW    (NGROUP+1)*NKFAMI=NUMBER OF WORDS                                -
+C                                                                      -
+CB    FORMAT(4H 3D ,  5E12.5/(6E12.5)) SNUDEL                          -
+CB    FORMAT(12I6)                     NUMFAM                          -
+C                                                                      -
+CD    SNUDEL(J,K)   NUMBER OF DELAYED NEUTRON PRECURSORS PRODUCED IN   -
+CD                     FAMILY NUMBER NUMFAM(K) PER FISSION IN          -
+CD                     GROUP J                                         -
+CD    NUMFAM(K)     FAMILY NUMBER OF THE K-TH YIELD VECTOR IN          -
+CD                     ARRAY SNUDEL(J,K)                               -
+C                                                                      -
+C-----------------------------------------------------------------------
+
+CEOF
